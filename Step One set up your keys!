@@ -1,0 +1,23 @@
+stage.set_background("moon") 
+hedgey = codesters.Sprite("hedgehog") 
+hedgey.go_to(0, -210)
+
+def left_key():
+    hedgey.turn_left(20)
+    # add other actions...
+    
+stage.event_key("left", left_key)
+
+def right_key():
+    hedgey.turn_right(20)
+    # add other actions...
+    
+stage.event_key("right", right_key)
+
+def up_key():
+    hedgey.move_up(575)
+    stage.wait(0.1)
+    hedgey.go_to(0, -210) 
+    # add other actions...
+    
+stage.event_key("up", up_key)
