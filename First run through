@@ -1,0 +1,47 @@
+stage.set_background("moon")
+hedgey = codesters.Sprite("hedgehog")
+hedgey.go_to(0, -210)
+
+points = 0
+score_board = codesters.Display(points, -209, -209)
+time = 0
+timer_board = codesters.Display(time, 194,-197)
+
+
+def interval():
+    global time
+    time +=1
+    timer_board.update(time)
+    if time %2 == 0:
+        x = random.randint(-230,230)
+        y = random.randint(0,230)
+        star = codesters.Star(x, y, 5, 20, "yellow")
+        
+        if time == 60:
+            stage.remove_sprite(hedgey)
+            text = codesters.Text("HEDGEY SCORED "+ str(points) + " POINTS!", -21, -176, "red")
+stage.event_interval(interval, 1)
+
+
+def left():
+    hedgey.turn_left(20)
+stage.event_left_key(left)
+
+def right():
+    hedgey.turn_right(20)
+stage.event_right_key(right)
+
+def up():
+    hedgey.set_say_color("white")
+    hedgey.say("BLAST OFF !",2)
+    hedgey.move_forward(575)
+    stage.wait(0.1)
+    hedgey.go_to(0, -210)
+stage.event_up_key(up)
+
+def collision(star, hit_sprite):
+    global points
+    points += 1
+    hit_sprite.hide()
+    score_board.update(points)
+hedgey.event_collision(collision)
